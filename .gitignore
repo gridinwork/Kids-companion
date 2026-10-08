@@ -1,0 +1,17 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+config.json
+PIN.txt
+data/
+logs/
+installed.flag
+sounds/
+skins/
+*.zip
+*.exe
+*.spec
+Windows/_build/
+Doc/*
+!Doc/README_RU.md

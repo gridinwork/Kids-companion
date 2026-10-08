@@ -1,55 +1,30 @@
-# Kids Companion
+# Kids Companion 0.3.0
 
-**Kids Companion** is a Windows desktop companion designed to help parents manage a child's computer time in a friendly and non-intrusive way.
+Программа для Windows 10/11: питомец на рабочем столе, учёт активного времени, перерывы, игры и родительский PIN.
 
-The application combines a small animated desktop companion with parental-control features, configurable usage limits, notifications, and protected settings.
+## Установка
 
-## Main features
+Скачайте `TechnoLabKids_Setup.exe` со страницы [Releases](https://github.com/gridinwork/Kids-companion/releases/latest), запустите, выберите отдельную папку и задайте родительский PIN. Установка для текущего пользователя, права администратора не нужны. При обновлении закройте старую программу по PIN, выберите её папку и укажите прежний PIN: настройки и статистика сохраняются.
 
-- Desktop companion for children
-- Computer usage time tracking
-- Configurable daily screen-time limits
-- Break and time-limit reminders
-- Parent-protected settings
-- Parental PIN protection
-- Windows system tray operation
-- Companion icon in the tray
-- Background operation after startup
-- Child-friendly interface
-- Local Windows application
+## Новое в 0.3.0
 
-## How it works
+- Кнопка **Выйти из программы…** в основном окне. Правильный PIN полностью завершает работу: учёт, таймеры, уведомления, звуки и блокировки останавливаются. Автозапуск при этом сохраняется.
+- Галочка **Автозапуск Windows** сразу добавляет или удаляет запись для текущего пользователя после проверки PIN. Состояние считывается из реестра. Выход и временное отключение контроля больше не удаляют эту запись.
+- Кнопка **Удалить программу…** с проверкой PIN и подтверждением. Удаляет установленную программу, её настройки, PIN, статистику, созданные ресурсы, ярлык и автозапуск. Посторонние файлы в папке установки сохраняются. Удаление также доступно через список установленных приложений Windows.
+- **Учебное время: понедельник–пятница, 08:45–13:00** по местным часам компьютера. Не расходует дневной лимит, не показывает питомца автоматически, не выдаёт уведомления и звуки напоминаний, не блокирует экран. Действует независимо от времени запуска и перезапуска. После 13:00 контроль возобновляется; учебные часы не добавляются задним числом, непрерывная сессия начинается заново. Выходные работают по обычным правилам.
+- Учебный режим можно отключить или изменить его часы в настройках. Сохранение настроек защищено PIN.
+- Повторный запуск открывает уже работающую программу, не создавая второй счётчик.
 
-Kids Companion runs on the child's Windows computer and keeps track of computer usage time. The companion can notify the child when the allowed time is close to ending and helps enforce the configured limits.
+Кнопка закрытия окна продолжает сворачивать приложение. Для полного выхода используйте отдельную кнопку или пункт «Выход» в трее.
 
-Parental settings are protected by a PIN so that limits and restrictions cannot be changed accidentally by the child.
+## Запуск из исходников
 
-After startup, the application can continue running in the Windows system tray, keeping the desktop clean while preserving access to the companion and its status.
+Python 3.11: `install.bat`, затем `start.bat`. Для сборки EXE: `Windows/build_exe.bat`. Ресурсы питомцев и звуков создаются программой при первом запуске. Исходная версия не удаляет свою папку по кнопке деинсталляции; эта функция предназначена для установленного EXE.
 
-## Intended use
+Проверки: `python -m unittest discover -s tests -v`. Тесты используют временные папки, подменённую блокировку и операции автозапуска. Автосборка на GitHub проверяет тесты и публикует установщик версии 0.3.0.
 
-The project is designed as a lightweight parental-assistance tool for families who want to:
+## Особенности защиты
 
-- limit excessive computer usage;
-- encourage regular breaks;
-- create a predictable daily computer schedule;
-- give children a more friendly experience than traditional parental-control software.
+В текущей архитектуре PIN хранится в локальном `PIN.txt` для восстановления родителем. Программа — помощник родителя, а не защита от пользователя с доступом к её файлам или диспетчеру задач. Блокировка использует стандартную `LockWorkStation`; вход в Windows защищается отдельно.
 
-## Platform
-
-- Windows
-- Desktop GUI application
-
-## Status
-
-The project is under active development.
-
-More functionality, companion skins, parental-control options, activity tracking, and usability improvements may be added in future versions.
-
-## Author
-
-Developed by **GEC Engineering / TechnoLab**.
-
-## Disclaimer
-
-Kids Companion is intended as a parental-assistance application. Parents or guardians remain responsible for choosing appropriate limits, settings, and supervision for their children.
+Разработчик: **GEC Engineering / TechnoLab**.
